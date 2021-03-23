@@ -1,3 +1,18 @@
+# Environment variables
+
+Local .env file contains
+* PORT - default port number to run on
+
+# Tools
+
+* babel
+* webpack
+* yarn: npm install -g yarn
+
+# Commands
+
+* yarn run start
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

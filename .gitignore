@@ -1,4 +1,8 @@
 node_modules
 .env
 .idea
-
+yarn.lock
+.yarn
+.yarnrc.yml
+.pnp.js
+dist
