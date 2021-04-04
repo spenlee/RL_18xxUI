@@ -1,14 +1,23 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 
-import Dashboard from './components/Dashboard';
+import Home from './components/Home';
+import Game from './components/Game';
 import './App.css';
 
 const App = () => {
   return (
-    <div className="App">
-      <Dashboard />
-    </div>
+    <Router>
+      <Switch>
+        <Route path={`/game/:id`} component={Game}/>
+        <Route path="/" component={Home}/>
+      </Switch>
+    </Router>
   );
-}
+};
 
 export default App;
