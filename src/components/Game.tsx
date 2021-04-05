@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import axios from 'axios';
 import { RouteComponentProps } from 'react-router';
 import {
   withRouter
@@ -9,7 +8,7 @@ import {
 interface RouteParams {id: string}
 
 class Game extends Component<RouteComponentProps<RouteParams>, any> {
-  constructor(props: any){
+  constructor(props: any) {
     super(props);
 
     this.state = {
