@@ -17,6 +17,10 @@ class HomeComponent extends Component<HomeState, any> {
   }
 
   render() {
+    console.log("games", this.props.games);
+    console.log("isLoading", this.props.isLoading);
+    console.log("err", this.props.err);
+
     if (this.props.isLoading) {
       return(
         <div>
@@ -29,7 +33,8 @@ class HomeComponent extends Component<HomeState, any> {
       return(
         <div>
           <h1>Games(s)</h1>
-            <h2>{err}</h2>
+            <h2>hey dad, big error sorry</h2>
+            <h3>{this.props.err}</h3>
         </div>
       )
     }
@@ -51,15 +56,15 @@ class HomeComponent extends Component<HomeState, any> {
 
 const mapStateToProps = (state: any) => {
   return {
-    games: state.games,
-    isLoading: state.isLoading,
-    err: state.err
+    games: state.gamesState.games,
+    isLoading: state.gamesState.isLoading,
+    err: state.gamesState.err
   }
 };
 
 function mapDispatchToProps(dispatch: any) {
   return {
-    getGames: dispatch(getGames())
+    getGames: () => dispatch(getGames())
   };
 }
 

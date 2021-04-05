@@ -11,27 +11,28 @@ export function getGames() {
     axios.get('/api/game')
       .then((res: any) => res.data)
       .then((games: Game[]) => dispatch(getGamesSuccess(games)))
-      .catch((err: any) => dispatch(getGamesHasErrored(err)));
+      .catch(() => dispatch(getGamesHasErrored(true)));
     }
 };
 
 export function getGamesSuccess(games: Game[]) {
   return {
     type: GET_GAMES_SUCCESS,
-    games
+    payload: games
   };
 }
 
-export function getGamesIsLoading(bool: boolean) {
+export function getGamesIsLoading(isLoading: boolean) {
   return {
     type: GET_GAMES_IS_LOADING,
-    bool
+    payload: isLoading
   };
 }
 
-export function getGamesHasErrored(err: any) {
+export function getGamesHasErrored(hasError: boolean) {
+  console.log("error here", hasError);
   return {
     type: GET_GAMES_HAS_ERRORED,
-    err
+    payload: hasError
   };
 }

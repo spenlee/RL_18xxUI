@@ -6,30 +6,30 @@ import { Game } from "../models/index";
 const initial: gamesState = {
   games: [],
   isLoading: false,
-  err: null
+  err: false
 }
 
 interface gamesState {
   games: Game[],
   isLoading: boolean,
-  err: any
+  err: boolean
 }
 
 export default function games(state: gamesState = initial, action: any) {
   switch (action.type) {
-    case 'GET_GAMES_SUCCESS':
+    case GET_GAMES_SUCCESS:
 	    return Object.assign({}, state, {
 	      games: action.payload,
         isLoading: false,
-        err: null
+        err: false
 	    });
-    case 'GET_GAMES_IS_LOADING':
+    case GET_GAMES_IS_LOADING:
       return Object.assign({}, state, {
         games: state.games,
         isLoading: action.payload,
-        err: null
+        err: false
       });
-    case 'GET_GAMES_HAS_ERRORED':
+    case GET_GAMES_HAS_ERRORED:
       return Object.assign({}, state, {
         games: state.games,
         isLoading: false,

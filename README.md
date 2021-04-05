@@ -1,3 +1,11 @@
+# Commands
+Installing dependencies, populating node_modules
+* yarn install
+Compiling
+* yarn run build
+Starting the server
+* yarn run start
+
 # Environment variables
 
 Local .env file contains
@@ -8,10 +16,6 @@ Local .env file contains
 * babel
 * webpack
 * yarn: npm install -g yarn
-
-# Commands
-
-* yarn run start
 
 # Getting Started with Create React App
 
