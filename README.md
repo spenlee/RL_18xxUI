@@ -1,8 +1,11 @@
 # Commands
+
 Installing dependencies, populating node_modules
 * yarn install
+
 Compiling
 * yarn run build
+
 Starting the server
 * yarn run start
 
@@ -16,6 +19,9 @@ Local .env file contains
 * babel
 * webpack
 * yarn: npm install -g yarn
+
+Adding a dev-dependency, for example
+* yarn add @types/react-redux --dev
 
 # Getting Started with Create React App
 
