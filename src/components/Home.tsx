@@ -3,16 +3,19 @@ import { connect } from "react-redux";
 import {
   Link
 } from "react-router-dom";
-import { getGames, createNewGame, getGame } from "../actions/index";
+import { getGames, createNewGame, getGame, deleteGame } from "../actions/index";
 import { Game } from "../models/index";
 
 interface HomeState {
   games: Game[],
   isLoading: boolean,
-  err: any,
+  err: boolean,
+  deleteGameIsLoading: boolean,
+  deleteGameErr: boolean,
   getGames: () => void,
   createNewGame: () => void,
   getGame: (id: string) => void,
+  deleteGame: (id: string) => void,
 };
 
 class HomeComponent extends Component<HomeState, any> {
@@ -47,6 +50,9 @@ class HomeComponent extends Component<HomeState, any> {
                       <Link to="/game" onClick={() => this.props.getGame(game._id)}>
                         Load {game._id}
                       </Link>
+                      <button onClick={() => this.props.deleteGame(game._id)}>
+                        Delete
+                      </button>
                     </li>
                 ))}
             </ul>
@@ -61,7 +67,9 @@ const mapStateToProps = (state: any) => {
   return {
     games: state.gamesState.games,
     isLoading: state.gamesState.isLoading,
-    err: state.gamesState.err
+    err: state.gamesState.err,
+    deleteGameIsLoading: state.gamesState.deleteGameIsLoading,
+    deleteGameErr: state.gamesState.deleteGameErr,
   }
 };
 
@@ -70,6 +78,7 @@ function mapDispatchToProps(dispatch: any) {
     getGames: () => dispatch(getGames()),
     createNewGame: () => dispatch(createNewGame({numPlayers: 4})),
     getGame: (id: string) => dispatch(getGame(id)),
+    deleteGame: (id: string) => dispatch(deleteGame(id)),
   };
 }
 

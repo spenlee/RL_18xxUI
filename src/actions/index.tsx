@@ -8,6 +8,9 @@ import {
   GET_GAME_SUCCESS,
   GET_GAME_IS_LOADING,
   GET_GAME_HAS_ERRORED,
+  DELETE_GAME_SUCCESS,
+  DELETE_GAME_IS_LOADING,
+  DELETE_GAME_HAS_ERRORED,
 } from "../constants/action-types";
 import { Game } from "../models/index";
 import axios from 'axios';
@@ -108,6 +111,37 @@ export function getGameIsLoading(isLoading: boolean) {
 export function getGameHasErrored(hasError: boolean) {
   return {
     type: GET_GAME_HAS_ERRORED,
+    payload: hasError
+  };
+}
+
+export function deleteGame(id: string) {
+  return function(dispatch: any) {
+    dispatch(deleteGameIsLoading(true));
+
+    axios.delete(`/api/game/${id}`)
+      .then((res: any) => dispatch(deleteGameSuccess(id)))
+      .catch(() => dispatch(deleteGameHasErrored(true)));
+    }
+};
+
+export function deleteGameSuccess(id: string) {
+  return {
+    type: DELETE_GAME_SUCCESS,
+    payload: id
+  };
+}
+
+export function deleteGameIsLoading(isLoading: boolean) {
+  return {
+    type: DELETE_GAME_IS_LOADING,
+    payload: isLoading
+  };
+}
+
+export function deleteGameHasErrored(hasError: boolean) {
+  return {
+    type: DELETE_GAME_HAS_ERRORED,
     payload: hasError
   };
 }
