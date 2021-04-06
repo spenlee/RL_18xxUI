@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import {
   Link
 } from "react-router-dom";
-import { getGames, createNewGame } from "../actions/index";
+import { getGames, createNewGame, getGame } from "../actions/index";
 import { Game } from "../models/index";
 
 interface HomeState {
@@ -12,6 +12,7 @@ interface HomeState {
   err: any,
   getGames: () => void,
   createNewGame: () => void,
+  getGame: (id: string) => void,
 };
 
 class HomeComponent extends Component<HomeState, any> {
@@ -43,7 +44,9 @@ class HomeComponent extends Component<HomeState, any> {
             <ul>
                 {this.props.games.map((game) => (
                     <li key={game._id}>
-                        {game._id}
+                      <Link to="/game" onClick={() => this.props.getGame(game._id)}>
+                        Load {game._id}
+                      </Link>
                     </li>
                 ))}
             </ul>
@@ -66,6 +69,7 @@ function mapDispatchToProps(dispatch: any) {
   return {
     getGames: () => dispatch(getGames()),
     createNewGame: () => dispatch(createNewGame({numPlayers: 4})),
+    getGame: (id: string) => dispatch(getGame(id)),
   };
 }
 
