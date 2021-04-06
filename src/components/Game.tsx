@@ -1,20 +1,18 @@
 import React, {Component} from 'react';
-import { RouteComponentProps } from 'react-router';
+import { connect } from "react-redux";
 import {
-  withRouter
+  Link
 } from "react-router-dom";
+import { Game } from "../models/index";
 
 
-interface RouteParams {id: string}
+interface GameState {
+  game: Game,
+  isLoading: boolean,
+  err: any
+};
 
-class Game extends Component<RouteComponentProps<RouteParams>, any> {
-  constructor(props: any) {
-    super(props);
-
-    this.state = {
-      id: this.props.match.params.id
-    }
-  }
+class ConnectedGameComponent extends Component<GameState, any> {
 
   componentDidMount() {
   }
@@ -22,10 +20,28 @@ class Game extends Component<RouteComponentProps<RouteParams>, any> {
   render() {
     return(
       <div>
-        <h1>This is game: {this.state.id}</h1>
+        <h1>Game</h1>
+        {this.props.isLoading && <h2>hey dad i'm loading</h2>}
+        {this.props.err &&
+          <>
+            <h2>hey dad, big error sorry</h2>
+            <h3>{this.props.err}</h3>
+          </>
+        }
+        {!this.props.err && <div>{JSON.stringify(this.props.game,null,2)}</div>}
       </div>
     )
   }
 }
 
-export default withRouter(Game);
+const mapStateToProps = (state: any) => {
+  return {
+    game: state.gameState.game,
+    isLoading: state.gameState.isLoading,
+    err: state.gameState.err
+  }
+};
+
+const GameComponent = connect(mapStateToProps)(ConnectedGameComponent);
+
+export default GameComponent;

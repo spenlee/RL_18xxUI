@@ -15,7 +15,7 @@ interface gamesState {
   err: boolean
 }
 
-export default function games(state: gamesState = initial, action: any) {
+export default function gamesReducer(state: gamesState = initial, action: any) {
   switch (action.type) {
     case GET_GAMES_SUCCESS:
 	    return Object.assign({}, state, {

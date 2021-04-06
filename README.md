@@ -12,13 +12,14 @@ Starting the server
 # Environment variables
 
 Local .env file contains
-* PORT - default port number to run on
+* PORT - default port number to run on, for example `PORT=9999`
 
 # Tools
 
 * babel
 * webpack
-* yarn: npm install -g yarn
+* yarn. To install yarn:
+npm install -g yarn
 
 Adding a dev-dependency, for example
 * yarn add @types/react-redux --dev

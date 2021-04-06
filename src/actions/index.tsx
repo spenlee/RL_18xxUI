@@ -1,6 +1,9 @@
 import { GET_GAMES_SUCCESS,
   GET_GAMES_IS_LOADING,
-  GET_GAMES_HAS_ERRORED } from "../constants/action-types";
+  GET_GAMES_HAS_ERRORED,
+  CREATE_NEW_GAME_SUCCESS,
+  CREATE_NEW_GAME_IS_LOADING,
+  CREATE_NEW_GAME_HAS_ERRORED } from "../constants/action-types";
 import { Game } from "../models/index";
 import axios from 'axios';
 
@@ -30,9 +33,44 @@ export function getGamesIsLoading(isLoading: boolean) {
 }
 
 export function getGamesHasErrored(hasError: boolean) {
-  console.log("error here", hasError);
   return {
     type: GET_GAMES_HAS_ERRORED,
+    payload: hasError
+  };
+}
+
+export interface createNewGameRequest {
+  numPlayers: number
+}
+
+export function createNewGame(req: createNewGameRequest) {
+  return function(dispatch: any) {
+    dispatch(createNewGameLoading(true));
+
+    axios.post('/api/game', req)
+      .then((res: any) => res.data)
+      .then((game: Game) => dispatch(createNewGameSuccess(game)))
+      .catch(() => dispatch(createNewGameHasErrored(true)));
+    }
+};
+
+export function createNewGameSuccess(game: Game) {
+  return {
+    type: CREATE_NEW_GAME_SUCCESS,
+    payload: game
+  };
+}
+
+export function createNewGameLoading(isLoading: boolean) {
+  return {
+    type: CREATE_NEW_GAME_IS_LOADING,
+    payload: isLoading
+  };
+}
+
+export function createNewGameHasErrored(hasError: boolean) {
+  return {
+    type: CREATE_NEW_GAME_HAS_ERRORED,
     payload: hasError
   };
 }
