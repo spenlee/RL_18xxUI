@@ -11,9 +11,24 @@ import {
   DELETE_GAME_SUCCESS,
   DELETE_GAME_IS_LOADING,
   DELETE_GAME_HAS_ERRORED,
+  PLACE_BID_SUCCESS,
+  PLACE_BID_IS_LOADING,
+  PLACE_BID_HAS_ERRORED,
 } from "../constants/action-types";
 import { Game } from "../models/index";
 import axios from 'axios';
+
+export interface createNewGameRequest {
+  numPlayers: number
+}
+
+export interface placeBidRequest {
+  gameId: string,
+  playerNumber: number,
+  amount: number,
+  companyShortName: string,
+  pass: boolean
+}
 
 export function getGames() {
   return function(dispatch: any) {
@@ -45,10 +60,6 @@ export function getGamesHasErrored(hasError: boolean) {
     type: GET_GAMES_HAS_ERRORED,
     payload: hasError
   };
-}
-
-export interface createNewGameRequest {
-  numPlayers: number
 }
 
 export function createNewGame(req: createNewGameRequest) {
@@ -142,6 +153,38 @@ export function deleteGameIsLoading(isLoading: boolean) {
 export function deleteGameHasErrored(hasError: boolean) {
   return {
     type: DELETE_GAME_HAS_ERRORED,
+    payload: hasError
+  };
+}
+
+export function placeBid(req: placeBidRequest) {
+  return function(dispatch: any) {
+    dispatch(placeBidIsLoading(true));
+
+    axios.post(`/api/bid/${req.gameId}`, req)
+      .then((res: any) => res.data.game)
+      .then((game: Game) => dispatch(placeBidSuccess(game)))
+      .catch(() => dispatch(placeBidHasErrored(true)));
+    }
+};
+
+export function placeBidSuccess(game: Game) {
+  return {
+    type: PLACE_BID_SUCCESS,
+    payload: game
+  };
+}
+
+export function placeBidIsLoading(isLoading: boolean) {
+  return {
+    type: PLACE_BID_IS_LOADING,
+    payload: isLoading
+  };
+}
+
+export function placeBidHasErrored(hasError: boolean) {
+  return {
+    type: PLACE_BID_HAS_ERRORED,
     payload: hasError
   };
 }

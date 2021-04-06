@@ -4,6 +4,7 @@ import {
   Link
 } from "react-router-dom";
 import { Game, Bank, Player, MinorCompany, PrivateCompany } from "../models/index";
+import AuctionBid from "./AuctionBid";
 
 
 interface GameState {
@@ -12,7 +13,7 @@ interface GameState {
   err: any
 };
 
-class ConnectedGameComponent extends Component<GameState, any> {
+class GameComponent extends Component<GameState, any> {
 
   componentDidMount() {
   }
@@ -39,6 +40,7 @@ function displayGame(game: Game) {
   return(
   <div>
     <div>
+      {displayAuctionBid(game)}
       <h2>Game</h2>
       <ul>
         <li>_id: {game._id}</li>
@@ -62,6 +64,14 @@ function displayGame(game: Game) {
 
     {displayMinorCompanies(game.minorCompanyMap)}
   </div>);
+}
+
+function displayAuctionBid(game: Game) {
+  const shouldDisplayAuctionActions = game.roundType === "AUCTION" || game.roundType === "PRIVATE_AUCTION";
+  if (shouldDisplayAuctionActions) {
+    return <AuctionBid gameId={game._id}/>;
+  }
+  return;
 }
 
 function displayBank(bank: Bank) {
@@ -162,6 +172,4 @@ const mapStateToProps = (state: any) => {
   }
 };
 
-const GameComponent = connect(mapStateToProps)(ConnectedGameComponent);
-
-export default GameComponent;
+export default connect(mapStateToProps)(GameComponent);
