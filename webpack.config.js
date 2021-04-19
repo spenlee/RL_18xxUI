@@ -35,7 +35,7 @@ module.exports = {
                         }
                      },
                      { 
-                         loader: 'postcss-loader',
+                        loader: 'postcss-loader',
                         options: {
                             postcssOptions: {
                                 plugins: [
@@ -43,7 +43,9 @@ module.exports = {
                                 ],
                             },
                         }
-                      }
+                    },
+                    // Compiles Sass to CSS
+                    "sass-loader",
                 ]
             },
             {

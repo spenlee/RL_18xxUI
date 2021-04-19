@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import { connect } from "react-redux";
 import { placeBidRequest, placeBid } from "../actions/index";
-
+import { Game } from '../models';
 
 
 interface AuctionBidState {
-  gameId: string,
+  game: Game,
   placeBidIsLoading: boolean,
   placeBidErr: boolean,
   placeBid: (req: placeBidRequest) => void,
@@ -46,7 +46,7 @@ class AuctionBid extends Component<AuctionBidState, any> {
   handleSubmit(event: any) {
     event.preventDefault();
     const placeBidRequest = {
-      gameId: this.props.gameId,
+      gameId: this.props.game._id,
       playerNumber: parseInt(this.state.playerNumber),
       amount: parseInt(this.state.amount),
       companyShortName: this.state.companyShortName,
@@ -58,7 +58,7 @@ class AuctionBid extends Component<AuctionBidState, any> {
   render() {
     return(
       <div>
-        <h2>Auction Actions</h2>
+        <h2>Auction</h2>
         {this.props.placeBidIsLoading && <h3>Place bid is loading</h3>}
         {this.props.placeBidErr && <h3>Place bid failed</h3>}
         <form onSubmit={this.handleSubmit}>
@@ -102,4 +102,4 @@ function mapDispatchToProps(dispatch: any) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuctionBid);;
+export default connect(mapStateToProps, mapDispatchToProps)(AuctionBid);

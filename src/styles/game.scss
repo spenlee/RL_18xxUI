@@ -1,0 +1,19 @@
+@import "./_global.scss";
+
+.game-div {
+    background-color: $dark-background-color;
+}
+
+.row-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.info-box {
+    display: flex;
+}
+
+.container {
+    padding: 25px;
+}

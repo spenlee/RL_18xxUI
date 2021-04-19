@@ -1,10 +1,14 @@
-import React, {Component} from 'react';
+import {
+  Button, ButtonGroup, Card
+} from "@blueprintjs/core";
+import React, { Component } from 'react';
 import { connect } from "react-redux";
 import {
   Link
 } from "react-router-dom";
-import { getGames, createNewGame, getGame, deleteGame } from "../actions/index";
+import { createNewGame, deleteGame, getGame, getGames } from "../actions/index";
 import { Game } from "../models/index";
+import '../styles/home.scss';
 
 interface HomeState {
   games: Game[],
@@ -25,10 +29,14 @@ class HomeComponent extends Component<HomeState, any> {
   }
 
   render() {
-    return(
-      <div>
-        <h1>Home</h1>
-        <h1>Hey dad, welcome</h1>
+    return (
+      <div className="bp3-dark home-div">
+        <div className="container">
+          <h1>Home</h1>
+        </div>
+        <div className="container">
+          <h1>Hey dad, welcome</h1>
+        </div>
         {this.props.isLoading && <h2>hey dad i'm loading</h2>}
         {this.props.err &&
           <>
@@ -38,24 +46,39 @@ class HomeComponent extends Component<HomeState, any> {
         }
         {!this.props.err &&
           <>
-            <h2>Start a new game</h2>
-            <Link to="/game" onClick={() => this.props.createNewGame()}>
-              New Game
-            </Link>
+            <div className="container">
+              <Card>
+                <h2>Start a new game</h2>
+                <div className="container">
+                  <Link to="/game" onClick={() => this.props.createNewGame()}>
+                    <Button large={true}>
+                      New Game
+                    </Button>
+                  </Link>
+                </div>
+              </Card>
+            </div>
 
-            <h2>Load a game</h2>
-            <ul>
+            <div className="container">
+              <Card>
+                <h2>Existing Games</h2>
                 {this.props.games.map((game) => (
-                    <li key={game._id}>
+                  <div className="container">
+                    <h3>Game ID: {game._id}</h3>
+                    <ButtonGroup>
                       <Link to="/game" onClick={() => this.props.getGame(game._id)}>
-                        Load {game._id}
+                        <Button large={true}>
+                          Load Game
+                        </Button>
                       </Link>
-                      <button onClick={() => this.props.deleteGame(game._id)}>
-                        Delete
-                      </button>
-                    </li>
+                      <Button large={true} onClick={() => this.props.deleteGame(game._id)}>
+                        Delete Game
+                      </Button>
+                    </ButtonGroup>
+                  </div>
                 ))}
-            </ul>
+              </Card>
+            </div>
           </>
         }
       </div>
@@ -76,7 +99,7 @@ const mapStateToProps = (state: any) => {
 function mapDispatchToProps(dispatch: any) {
   return {
     getGames: () => dispatch(getGames()),
-    createNewGame: () => dispatch(createNewGame({numPlayers: 4})),
+    createNewGame: () => dispatch(createNewGame({ numPlayers: 4 })),
     getGame: (id: string) => dispatch(getGame(id)),
     deleteGame: (id: string) => dispatch(deleteGame(id)),
   };

@@ -2,8 +2,10 @@ node_modules
 .env
 .idea
 yarn.lock
+package-lock.json
 .yarn
 .yarnrc.yml
 .pnp.js
 dist
 build
+.vscode
