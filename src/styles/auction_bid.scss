@@ -1,0 +1,12 @@
+@import "./_global.scss";
+
+.row-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.auction-bid-box {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}

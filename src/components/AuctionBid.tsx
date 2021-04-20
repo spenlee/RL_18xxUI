@@ -1,7 +1,9 @@
+import { FormGroup, Button, InputGroup, ControlGroup, Label, Switch } from '@blueprintjs/core';
 import React, {Component} from 'react';
 import { connect } from "react-redux";
 import { placeBidRequest, placeBid } from "../actions/index";
 import { Game } from '../models';
+import '../styles/auction_bid.scss';
 
 
 interface AuctionBidState {
@@ -15,7 +17,7 @@ class AuctionBid extends Component<AuctionBidState, any> {
   constructor(props: AuctionBidState) {
     super(props);
     this.state = {
-      playerNumber: -1,
+      playerNumber: props.game.currentPlayerTurn,
       amount: 0,
       companyShortName: "",
       pass: false,
@@ -33,6 +35,7 @@ class AuctionBid extends Component<AuctionBidState, any> {
       ...this.state,
       [event.target.name]: value
     });
+    // console.log(this.state);
   }
 
   toggleCheckbox(event: any) {
@@ -41,6 +44,7 @@ class AuctionBid extends Component<AuctionBidState, any> {
       ...this.state,
       pass: newValue
     });
+    // console.log(this.state);
   }
 
   handleSubmit(event: any) {
@@ -52,7 +56,8 @@ class AuctionBid extends Component<AuctionBidState, any> {
       companyShortName: this.state.companyShortName,
       pass: this.state.pass,
     };
-    this.props.placeBid(placeBidRequest);
+    // this.props.placeBid(placeBidRequest);
+    console.log(placeBidRequest);
   }
 
   render() {
@@ -61,29 +66,39 @@ class AuctionBid extends Component<AuctionBidState, any> {
         <h2>Auction</h2>
         {this.props.placeBidIsLoading && <h3>Place bid is loading</h3>}
         {this.props.placeBidErr && <h3>Place bid failed</h3>}
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            playerNumber:
-            <input type="text" name="playerNumber" value={this.state.playerNumber} onChange={this.handleChange} />
-          </label>
-          <br/>
-          <label>
-            amount:
-            <input type="text" name="amount" value={this.state.amount} onChange={this.handleChange} />
-          </label>
-          <br/>
-          <label>
-            companyShortName:
-            <input type="text" name="companyShortName" value={this.state.companyShortName} onChange={this.handleChange} />
-          </label>
-          <br/>
-          <label>
-            pass:
-            <input type="checkbox" name="pass" checked={this.state.pass} onChange={this.toggleCheckbox.bind(this)} />
-          </label>
-          <br/>
-          <input type="submit" value="Submit" />
-        </form>
+        <FormGroup>
+          <ControlGroup className="row-container">
+            <div className="auction-bid-box">
+              <Label>Player:</Label>
+            </div>
+            <InputGroup className="auction-bid-box" type="text" large={true} name="playerNumber" value={this.state.playerNumber} onChange={this.handleChange} />
+          </ControlGroup>
+
+          <ControlGroup className="row-container">
+            <div className="auction-bid-box">
+              <Label>Amount:</Label>
+            </div>
+            <InputGroup type="text" className="auction-bid-box" large={true}  name="amount" value={this.state.amount} onChange={this.handleChange} />
+          </ControlGroup>
+
+          <ControlGroup className="row-container">
+            <div className="auction-bid-box">
+              <Label>Company:</Label>
+            </div>
+            <InputGroup type="text" className="auction-bid-box" large={true}  name="companyShortName" value={this.state.companyShortName} onChange={this.handleChange} />
+          </ControlGroup>
+
+          <ControlGroup className="row-container">
+            <div className="auction-bid-box">
+              <Label>Pass:</Label>
+            </div>
+            <div className="auction-bid-box">
+              <Switch name="pass" large={true} checked={this.state.pass} onChange={this.toggleCheckbox.bind(this)} />
+            </div>
+          </ControlGroup>
+
+          <Button type="submit" large={true} onClick={this.handleSubmit}>Submit</Button>
+        </FormGroup>
       </div>
     )
   }
