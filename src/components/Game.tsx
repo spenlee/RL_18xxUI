@@ -2,8 +2,10 @@ import { Card } from "@blueprintjs/core";
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Bank, Game, MajorCompany, MinorCompany, Player, PrivateCompany, StockCertificates } from "../models/index";
-import '../styles/game.scss';
 import AuctionBid from "./AuctionBid";
+import StockMarket from "./StockMarket";
+import '../styles/game.scss';
+
 
 
 interface GameState {
@@ -38,6 +40,7 @@ class GameComponent extends Component<GameState, any> {
 }
 
 function displayGame(game: Game) {
+  console.log(game);
   return (
     <div>
       {displayGameStatus(game)}
@@ -46,6 +49,7 @@ function displayGame(game: Game) {
       {displayMinorCompanies(game.minorCompanyMap)}
       {displayMajorCompanies(game.majorCompanyMap)}
       {displayActions(game)}
+      {displayOpenMarket(game)}
     </div>);
 }
 
@@ -258,6 +262,19 @@ function displayActions(game: Game) {
       <div className="row-container">
         <Card className="info-box">
           {shouldDisplayAuctionActions && <AuctionBid game={game} />}
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+function displayOpenMarket(game: Game) {
+  return (
+    <div>
+      <h1>Stock Market</h1>
+      <div className="row-container">
+        <Card className="info-box">
+          <StockMarket game={game} />
         </Card>
       </div>
     </div>

@@ -1,0 +1,28 @@
+@import "./_global.scss";
+
+.stock-market-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.stock-market-row-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.stock-slot-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+}
+
+.par-value-stock-slot {
+    border: 1px solid #ed2939;
+}
+
+.limit-excluded-stock-slot {
+    border: 1px solid #fdee00;
+}

@@ -35,7 +35,6 @@ class AuctionBid extends Component<AuctionBidState, any> {
       ...this.state,
       [event.target.name]: value
     });
-    // console.log(this.state);
   }
 
   toggleCheckbox(event: any) {
@@ -44,7 +43,6 @@ class AuctionBid extends Component<AuctionBidState, any> {
       ...this.state,
       pass: newValue
     });
-    // console.log(this.state);
   }
 
   handleSubmit(event: any) {
@@ -56,8 +54,7 @@ class AuctionBid extends Component<AuctionBidState, any> {
       companyShortName: this.state.companyShortName,
       pass: this.state.pass,
     };
-    // this.props.placeBid(placeBidRequest);
-    console.log(placeBidRequest);
+    this.props.placeBid(placeBidRequest);
   }
 
   render() {

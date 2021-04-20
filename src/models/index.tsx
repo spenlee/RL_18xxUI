@@ -52,22 +52,34 @@ export interface PrivateOffer {
   privateCompanyName: string
 }
 
-export interface MappedRow {
-  mappedStartIndex: number,
-  length: number,
+export enum StockSlotColor {
+  NONE = "NONE",
+  YELLOW = "YELLOW",
+}
+
+export interface StockSlot {
+  coordinate: Coordinate,
+  price: number,
+  color: StockSlotColor,
+  isParValueSlot: boolean,
+}
+
+// chart coordinates
+export interface Coordinate {
+  row: number,
+  column: number,
 }
 
 export interface StockMarket {
-  // ordered list of stock market slot price values
-  prices: number[];
-  // map rows and their properties
-  rows: MappedRow[];
   // all the stock market slots that major companies populate
-  // the key is the single digit row + double digit column of the 18MEX stock chart
+  // the key is the <row>;<column> of the 18MEX stock chart
   // the value is the ordered list of companies in that stock slot
 	activeStockSlots: Map<string, string[]>;
-  // major company short name to active stock slot key
-  companyToStockSlotKey: Map<string, string>;
+  // major company short name to stock slot
+  companyToStockSlotKey: Map<string, StockSlot>;
+  // stock chart
+  // top-left origin 2D grid, 0-index, positively increasing down the x and y axis
+  chart: StockSlot[][];
 }
 
 export interface StockCertificates {
